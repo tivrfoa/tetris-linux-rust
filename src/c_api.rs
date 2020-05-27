@@ -13,6 +13,8 @@ extern "C" {
 
     pub fn pollKey(event: &SDL_Event) -> i32;
     pub fn isKeyDown(p_key: i32) -> i32;
+
+    pub fn SDLGetTickets() -> u64;
 }
 
 use crate::SDL::SDL_Event;

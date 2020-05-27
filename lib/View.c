@@ -190,3 +190,10 @@ int isKeyDown (int pKey)
     myKeytable = SDL_GetKeyboardState(&mNumkeys);
     return myKeytable[pKey];
 }
+
+unsigned long SDLGetTickets() {
+    unsigned long tmp = SDL_GetTicks();
+    //unsigned long tmp = 1987;
+    printf("I'm calling from C: %ld\n", tmp);
+    return tmp;
+}

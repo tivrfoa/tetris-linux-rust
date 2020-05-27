@@ -7,15 +7,12 @@ use crate::piece::{
     PieceType,
 };
 use crate::view::View;
-use crate::command::Command;
 
 use rand::{thread_rng, Rng};
 
 pub struct Game {
     board: Board,
     next_piece: Piece,
-    view: View,
-    command: Command,
     pos_x: usize,
     pos_y: usize,
     next_pos_x: usize,
@@ -29,7 +26,7 @@ pub struct Game {
 
 impl Game {
 
-    pub fn new(view: View, command: Command, _m_screen_height: i32) -> Self {
+    pub fn new(_m_screen_height: i32) -> Self {
 
         let m_screen_height: i32 = 480;
 
@@ -51,8 +48,6 @@ impl Game {
         Game {
             board,
             next_piece,
-            view,
-            command,
             pos_x,
             pos_y,
             next_pos_x,

@@ -16,8 +16,10 @@ impl View {
         }
     }
 
-    pub fn get_screen_height() {
-
+    pub fn get_screen_height() -> i32 {
+        unsafe {
+            getScreenHeight()
+        }
     }
 
     pub fn init_graph() {
@@ -50,6 +52,14 @@ impl View {
 
     pub fn load_test() {
 
+    }
+
+    pub fn sdl_get_tickets() -> u64 {
+        unsafe {
+            let tmp = SDLGetTickets();
+            println!("{:?}", tmp);
+            tmp
+        }
     }
 
 
