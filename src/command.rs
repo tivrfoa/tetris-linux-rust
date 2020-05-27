@@ -15,4 +15,10 @@ impl Command {
             isKeyDown(p_key)
         }
     }
+
+    pub fn sdl_poll_event(event: &SDL_Event) -> i32 {
+        unsafe {
+            SDL_PollEvent(event)
+        }
+    }
 }

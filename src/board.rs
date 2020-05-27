@@ -42,7 +42,8 @@ impl Board {
     }
 
     pub fn get_y_pos_in_pixels (&self, pPos: i32) -> i32 {
-        println!("get_y_pos_in_pixels -> pPos = {}", pPos);
+        // println!("get_y_pos_in_pixels -> pPos = {}", pPos);
+        //panic!("test");
         self.m_screen_height - (BLOCK_SIZE * BOARD_HEIGHT) + (pPos * BLOCK_SIZE)
     }
 
@@ -81,17 +82,17 @@ impl Board {
     }
 
     /// Store each block of the piece into the board
-    pub fn storePiece (&mut self, pX: usize, pY: usize) {
+    pub fn storePiece (&mut self, pX: i32, pY: i32) {
         let mut boardX = 0;
         let mut boardY = 0;
         
         for i in 0..PIECE_BLOCKS {
-            boardX = pX + (i as usize);
+            boardX = pX + i;
             for j in 0..PIECE_BLOCKS {
-                boardY = pY + (j as usize);
+                boardY = pY + j;
                 // Store only the blocks of the piece that are not holes
                 if self.piece.m_piece[i as usize][j as usize] != 0 {
-                    self.m_board[boardX][boardY] = self.piece.piece_type;
+                    self.m_board[boardX as usize][boardY as usize] = self.piece.piece_type;
                 }
             }
         }

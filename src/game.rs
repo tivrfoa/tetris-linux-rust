@@ -1,5 +1,5 @@
 
-const WAIT_TIME: usize = 700;
+pub const WAIT_TIME: u64 = 700;
 
 use crate::board::Board;
 use crate::piece::{
@@ -11,10 +11,10 @@ use crate::view::View;
 use rand::{thread_rng, Rng};
 
 pub struct Game {
-    board: Board,
+    pub board: Board,
     next_piece: Piece,
-    pos_x: i32,
-    pos_y: i32,
+    pub pos_x: i32,
+    pub pos_y: i32,
     next_pos_x: i32,
     next_pos_y: i32,
     piece_type: PieceType,
@@ -67,6 +67,10 @@ impl Game {
         // println!("{}", x);
 
         x
+    }
+
+    pub fn is_possible_movement(&self, x: i32, y: i32) -> bool {
+        self.board.isPossibleMovement(self.pos_x + x, self.pos_y + y)
     }
 
     pub fn create_new_piece(&mut self) {

@@ -163,8 +163,8 @@ void cleanUp()
 
 int pollkey (SDL_Event *event)
 {
-    printf("I'm pollKey from C\n");
-    printf("event->type = %d\n", event->type);
+    if (event->type < 768 || event->type > 771)
+        printf("event->type = %d\n", event->type); // 768, 769, 770, 771
     //SDL_Event event;
     while( SDL_PollEvent(event) )
     {
