@@ -11,7 +11,7 @@ extern "C" {
     pub fn loadBackGround ();
     pub fn loadText       ();
 
-    pub fn pollKey(event: &SDL_Event) -> i32;
+    pub fn pollkey(event: &SDL_Event) -> i32;
     pub fn isKeyDown(p_key: i32) -> i32;
 
     pub fn SDLGetTickets() -> u64;
@@ -27,7 +27,8 @@ pub enum color {ZERO, BLACK, RED, GREEN, BLUE, CYAN, MAGENTA,
 use crate::piece::PieceType;
 pub fn get_color(piece_type: PieceType) -> color {
     match piece_type {
-        PieceType::ZERO => panic!("Invalid type for color."),
+        //PieceType::ZERO => panic!("Invalid type for color: "),
+        PieceType::ZERO => color::BLACK,
         PieceType::I => color::BLACK,
         PieceType::L => color::RED,
         PieceType::LM => color::GREEN,

@@ -57,7 +57,6 @@ impl View {
     pub fn sdl_get_tickets() -> u64 {
         unsafe {
             let tmp = SDLGetTickets();
-            println!("{:?}", tmp);
             tmp
         }
     }

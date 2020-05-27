@@ -5,12 +5,12 @@ pub struct Command;
 
 impl Command {
 
-    fn poll_key(event: &SDL_Event) -> i32 {
+    pub fn poll_key(event: &SDL_Event) -> i32 {
         unsafe {
-            pollKey(event)
+            pollkey(event)
         }
     }
-    fn is_key_down(p_key: i32) -> i32 {
+    pub fn is_key_down(p_key: i32) -> i32 {
         unsafe {
             isKeyDown(p_key)
         }

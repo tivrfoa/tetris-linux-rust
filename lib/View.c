@@ -163,6 +163,8 @@ void cleanUp()
 
 int pollkey (SDL_Event *event)
 {
+    printf("I'm pollKey from C\n");
+    printf("event->type = %d\n", event->type);
     //SDL_Event event;
     while( SDL_PollEvent(event) )
     {
@@ -194,6 +196,6 @@ int isKeyDown (int pKey)
 unsigned long SDLGetTickets() {
     unsigned long tmp = SDL_GetTicks();
     //unsigned long tmp = 1987;
-    printf("I'm calling from C: %ld\n", tmp);
+    //printf("I'm calling from C: %ld\n", tmp);
     return tmp;
 }

@@ -139,6 +139,8 @@ impl Piece {
 
     pub fn get_piece(piece_type_value: i32) -> PieceType {
         match piece_type_value {
+            v if v < 0 => PieceType::ZERO, // TODO Is it valid?
+            0 => PieceType::ZERO,
             1 => PieceType::I,
             2 => PieceType::L,
             3 => PieceType::LM,
@@ -146,7 +148,7 @@ impl Piece {
             5 => PieceType::NM,
             6 => PieceType::S,
             7 => PieceType::T,
-            _ => panic!("Invalid piece type value."),
+            _ => panic!("Invalid piece type value: {}", piece_type_value),
         }
     }
 }
