@@ -88,8 +88,16 @@ impl Board {
             board_x = x + i;
             for j in 0..PIECE_BLOCKS {
                 board_y = y + j;
+                // thread 'main' panicked at 'board_y is negative ... = -1', src/board.rs:94:21
+                //assert!(board_y >= 0, "board_y is negative ... = {}", board_y);
+                if board_y < 0 { break; }
                 // Store only the blocks of the piece that are not holes
                 if self.piece.m_piece[i as usize][j as usize] != 0 {
+                    assert!(board_x >= 0, "board_x is negative ... = {}", board_x);
+                    assert!(board_x < BOARD_WIDTH,
+                            "board_x greater or equal BOARD_WIDTH. {} >= {}", board_x, BOARD_WIDTH);
+                    assert!(board_y < BOARD_HEIGHT,
+                            "board_y greater or equal BOARD_HEIGHT. {} >= {}", board_y, BOARD_HEIGHT);
                     self.m_board[board_x as usize][board_y as usize] = self.piece.piece_type;
                 }
             }
