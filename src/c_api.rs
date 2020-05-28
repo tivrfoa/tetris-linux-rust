@@ -20,6 +20,7 @@ extern "C" {
 
 use crate::SDL::SDL_Event;
 
+#[repr(C)]
 #[derive(Copy, Clone)]
 pub enum color {ZERO, BLACK, RED, GREEN, BLUE, CYAN, MAGENTA,
     YELLOW, WHITE, COLOR_MAX}

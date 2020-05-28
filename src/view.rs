@@ -4,9 +4,9 @@ pub struct View;
 
 impl View {
 
-    pub fn draw_block(x1: i32, y1: i32, x2: i32, y2: i32, pC: color) {
+    pub fn draw_block(x1: i32, y1: i32, x2: i32, y2: i32, c: color) {
         unsafe {
-            drawBlock(x1, y1, x2, y2, pC);
+            drawBlock(x1, y1, x2, y2, c);
         }
     }
 

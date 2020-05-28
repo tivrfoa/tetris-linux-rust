@@ -96,18 +96,18 @@ impl Board {
         }
     }
 
-    pub fn deletePossibleLines (&mut self) {
+    pub fn delete_possible_lines (&mut self) {
         for i in 0..BOARD_HEIGHT {
             let mut col = 0;
             while col < BOARD_WIDTH {
                 if self.m_board[col as usize][i as usize] == POS_FREE { break; }
                 col += 1;
             }
-            if col == BOARD_WIDTH { self.deleteLine(i as usize); }
+            if col == BOARD_WIDTH { self.delete_line(i as usize); }
         }
     }
 
-    pub fn isGameOver (&self) -> bool {
+    pub fn is_game_over (&self) -> bool {
         //If the first line has blocks, then, game over
         for i in 0..BOARD_WIDTH {
             if self.m_board[i as usize][0] != POS_FREE { return true; }
@@ -117,16 +117,12 @@ impl Board {
     }
 
     /// Moves all the upper lines one row down
-    pub fn deleteLine (&mut self, pY: usize) {
-        for j in (1..=pY).rev() {
+    pub fn delete_line (&mut self, y: usize) {
+        for j in (1..=y).rev() {
             for i in 0..BOARD_WIDTH {
                 self.m_board[i as usize][j] = self.m_board[i as usize][j-1];
             }
         }
-    }
-
-    pub fn updateCurrentPiece(&mut self, piece: Piece) {
-        self.piece = piece;
     }
 
     pub fn clear_board(&mut self) {
@@ -137,12 +133,12 @@ impl Board {
         }
     }
 
-    pub fn storedPieceType(&self, x: usize, y: usize) -> PieceType {
+    pub fn stored_piece_type(&self, x: usize, y: usize) -> PieceType {
         self.m_board[x][y]
     }
 
     pub fn get_pos_x() -> i32 {
-        let tmp = (BOARD_WIDTH as i32) / 2 + Piece::get_x_initial_position();
+        let tmp = (BOARD_WIDTH / 2) + Piece::get_x_initial_position();
         // println!("tmp = {}", tmp); // Initial value 3
 
         tmp
@@ -172,26 +168,24 @@ impl Board {
 
     pub fn draw_board(&self, m_screen_height: i32) {
         let mut x1 = BOARD_POSITION - (BLOCK_SIZE * (BOARD_WIDTH / 2)) - 1;
-        let x2 = BOARD_POSITION - (BLOCK_SIZE * (BOARD_WIDTH / 2));
-        let y  = m_screen_height - (BLOCK_SIZE * BOARD_HEIGHT) as i32;
+        let x2 = BOARD_POSITION + (BLOCK_SIZE * (BOARD_WIDTH / 2));
+        let y  = m_screen_height - BLOCK_SIZE * BOARD_HEIGHT;
 
-        View::draw_block((x1 - BOARD_LINE_WIDTH) as i32, y,
-                BOARD_LINE_WIDTH as i32, m_screen_height - 1, color::BLUE);
-        View::draw_block(x2 as i32, y, BOARD_LINE_WIDTH as i32, m_screen_height - 1, color::BLUE);
-        View::draw_block(x1 as i32, m_screen_height,
-                (BLOCK_SIZE * BOARD_WIDTH) as i32, BOARD_LINE_WIDTH as i32, color::BLUE);
+        View::draw_block(x1 - BOARD_LINE_WIDTH, y, BOARD_LINE_WIDTH, m_screen_height - 1, color::BLUE);
+        View::draw_block(x2, y, BOARD_LINE_WIDTH, m_screen_height - 1, color::BLUE);
+        View::draw_block(x1, m_screen_height, BLOCK_SIZE * BOARD_WIDTH, BOARD_LINE_WIDTH, color::BLUE);
         
         x1 += 1;
 
         for i in 0..BOARD_WIDTH {
             for j in 0..BOARD_HEIGHT {
-                let m_color = get_color(Board::storedPieceType(self, i as usize, j as usize));
+                let m_color = get_color(Board::stored_piece_type(self, i as usize, j as usize));
                 if !self.is_block_free(i as usize, j as usize) {
-                    View::draw_block((x1 + i * BLOCK_SIZE) as i32,
-                                      y + (j * BLOCK_SIZE) as i32,
-                                      (BLOCK_SIZE - 1) as i32,
-                                      (BLOCK_SIZE - 1) as i32,
-                                      m_color);
+                    View::draw_block(x1 + i * BLOCK_SIZE,
+                                     y + j * BLOCK_SIZE,
+                                     BLOCK_SIZE - 1,
+                                     BLOCK_SIZE - 1,
+                                     m_color);
                 }
             }
         }

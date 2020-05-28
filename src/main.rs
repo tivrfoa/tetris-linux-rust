@@ -83,9 +83,9 @@ Key is = 32
 					game.pos_y += 1;
 				}
 				game.board.store_piece(game.pos_x, game.pos_y - 1);
-				game.board.deletePossibleLines();
+				game.board.delete_possible_lines();
 
-				if game.board.isGameOver() {
+				if game.board.is_game_over() {
 					if !game.restart() {
 						break 'main_loop;
 					}
@@ -111,9 +111,9 @@ Key is = 32
 				game.pos_y += 1;
 			} else {
 				game.board.store_piece(game.pos_x, game.pos_y);
-				game.board.deletePossibleLines();
+				game.board.delete_possible_lines();
 
-				if game.board.isGameOver() {
+				if game.board.is_game_over() {
 					if !game.restart() { break; }
 				}
 				game.create_new_piece();
