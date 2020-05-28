@@ -1,5 +1,5 @@
 [package]
-name = "p2"
+name = "tetris"
 version = "0.1.0"
 authors = ["Leandro Coutinho <lescoutinhovr@gmail.com>"]
 edition = "2018"
@@ -8,7 +8,3 @@ edition = "2018"
 
 [dependencies]
 rand = "0.7"
-
-[build-dependencies]
-# cmake = "0.1.44"
-

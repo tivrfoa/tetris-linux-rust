@@ -138,7 +138,7 @@ impl Piece {
         }
     }
 
-    pub fn get_piece(piece_type_value: i32) -> PieceType {
+    pub fn get_piece_type(piece_type_value: i32) -> PieceType {
         match piece_type_value {
             v if v < 0 => PieceType::ZERO, // TODO Is it valid?
             0 => PieceType::ZERO,

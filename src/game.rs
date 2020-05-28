@@ -2,10 +2,7 @@
 pub const WAIT_TIME: u64 = 700;
 
 use crate::board::Board;
-use crate::piece::{
-    Piece,
-    PieceType,
-};
+use crate::piece::Piece;
 use crate::view::View;
 
 use rand::Rng;
@@ -17,9 +14,6 @@ pub struct Game {
     pub pos_y: i32,
     next_pos_x: i32,
     next_pos_y: i32,
-    piece_type: PieceType,
-    next_piece_type: PieceType,
-    rotation: i32,
     next_rotation: i32,
     m_screen_height: i32,
 }
@@ -30,8 +24,8 @@ impl Game {
 
         let m_screen_height: i32 = 480;
 
-        let piece_type      = Piece::get_piece(Game::get_rand(1, 7));
-        let next_piece_type = Piece::get_piece(Game::get_rand(1, 7));
+        let piece_type      = Piece::get_piece_type(Game::get_rand(1, 7));
+        let next_piece_type = Piece::get_piece_type(Game::get_rand(1, 7));
         let rotation        = Game::get_rand(0, 3);
         let next_rotation   = Game::get_rand(0, 3);
 
@@ -52,9 +46,6 @@ impl Game {
             pos_y,
             next_pos_x,
             next_pos_y,
-            piece_type,
-            next_piece_type,
-            rotation,
             next_rotation,
             m_screen_height,
         }
@@ -73,14 +64,14 @@ impl Game {
     }
 
     pub fn create_new_piece(&mut self) {
-        let mut new_piece = Piece::new(self.next_piece_type, self.next_rotation);
+        let mut new_piece = Piece::new(self.next_piece.piece_type, self.next_rotation);
         std::mem::swap(&mut new_piece, &mut self.next_piece);
         self.board.update_current_piece(new_piece);
 
-        self.pos_x = Board::get_pos_x();
-        self.pos_y = self.board.piece.get_y_initial_position();
-        self.next_piece_type = Piece::get_piece(Game::get_rand(1, 7));
-        self.next_rotation = Game::get_rand(0, 3);
+        self.pos_x                 = Board::get_pos_x();
+        self.pos_y                 = self.board.piece.get_y_initial_position();
+        self.next_piece.piece_type = Piece::get_piece_type(Game::get_rand(1, 7));
+        self.next_rotation         = Game::get_rand(0, 3);
     }
 
     pub fn draw_piece(&self, x: i32, y: i32, piece_to_draw: &Piece) {

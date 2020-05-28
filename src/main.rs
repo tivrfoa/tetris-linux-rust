@@ -3,6 +3,7 @@ mod game;
 mod board;
 mod piece;
 mod command;
+#[allow(non_snake_case)]
 mod SDL;
 mod c_api;
 
@@ -14,7 +15,6 @@ fn main() {
 
 	View::init_graph();
 	let screen_height = View::get_screen_height();
-	//println!("Screen height = {}", screen_height);
 	let mut game = game::Game::new(screen_height);
 
 	let mut sdl_event = SDL_Event {
@@ -22,7 +22,6 @@ fn main() {
 	};
 
 	let mut time1 = View::sdl_get_tickets();
-	//println!("time1 = {}", time1);
 
 	let mut quit = false;
 
@@ -31,29 +30,15 @@ fn main() {
 		game.draw_scene();
 
 		let key = Command::poll_key(&mut sdl_event);
-		if key != -1 {
-			unsafe { println!("Key = {} - event->type = {}", key, sdl_event.type_); }
-		}
 
-		let mut event = Command::sdl_poll_event(&mut sdl_event);
-		while event != 0 {
-			println!("Pending event = {}", event);
+		while Command::sdl_poll_event(&mut sdl_event) != 0 {
 			unsafe {
-				println!("sdl_event.type_ = {}", sdl_event.type_);
 				if sdl_event.type_ == SDL_QUIT {
 					quit = true;
 				}
 			}
-			event = Command::sdl_poll_event(&mut sdl_event);
 		}
 
-		/*
-Key is = 1073741906 -> up
-Key is = 1073741905 -> down
-Key is = 1073741904 -> left
-Key is = 1073741903 -> right
-Key is = 32         -> space
-		*/
 		match key {
 			10 => quit = true,
 			SDLK_RIGHT => {

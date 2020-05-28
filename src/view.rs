@@ -35,7 +35,9 @@ impl View {
     }
 
     pub fn clean_up() {
-
+        unsafe {
+            cleanUp();
+        }
     }
 
     pub fn load_background() {
@@ -50,22 +52,10 @@ impl View {
         }
     }
 
-    pub fn load_test() {
-
-    }
-
     pub fn sdl_get_tickets() -> u64 {
         unsafe {
             let tmp = SDLGetTickets();
             tmp
         }
     }
-
-
-    pub fn test_message_box() {
-        unsafe {
-            println!("{}", messageBox());
-        }
-    }
-
 }

@@ -9,11 +9,8 @@ extern "C" {
     pub fn updateScreen   ();
     pub fn cleanUp        ();
     pub fn loadBackGround ();
-    pub fn loadText       ();
 
     pub fn pollkey(event: &mut SDL_Event) -> i32;
-    pub fn isKeyDown(p_key: i32) -> i32;
-
     pub fn SDLGetTickets() -> u64;
     pub fn SDL_PollEvent(event: &mut SDL_Event) -> i32;
 }
@@ -22,6 +19,8 @@ use crate::SDL::SDL_Event;
 
 #[repr(C)]
 #[derive(Copy, Clone)]
+#[allow(dead_code)]
+#[allow(non_camel_case_types)]
 pub enum color {ZERO, BLACK, RED, GREEN, BLUE, CYAN, MAGENTA,
     YELLOW, WHITE, COLOR_MAX}
 

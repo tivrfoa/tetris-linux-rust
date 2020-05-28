@@ -10,11 +10,6 @@ impl Command {
             pollkey(event)
         }
     }
-    pub fn is_key_down(p_key: i32) -> i32 {
-        unsafe {
-            isKeyDown(p_key)
-        }
-    }
 
     pub fn sdl_poll_event(event: &mut SDL_Event) -> i32 {
         unsafe {
