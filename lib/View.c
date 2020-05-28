@@ -161,11 +161,24 @@ void cleanUp()
 }
 
 
+/*
+event->type:
+- 0 -> initial value
+- 512
+- 768
+- 769
+- 770
+- 771
+- 1024
+- 1025
+- 1026
+- 
+
+*/
 int pollkey (SDL_Event *event)
 {
-    if (event->type < 768 || event->type > 771)
-        printf("event->type = %d\n", event->type); // 768, 769, 770, 771
-    //SDL_Event event;
+    //if (event->type < 768 || event->type > 771)
+    //    printf("event->type = %d\n", event->type);
     while( SDL_PollEvent(event) )
     {
         switch (event->type)

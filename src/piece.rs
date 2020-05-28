@@ -58,7 +58,7 @@ const T: [[i32; 5]; 5] = [
     [0, 0, 0, 0, 0]
 ];
 
-#[derive(Clone, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum PieceType {
     ZERO = 0,
     I = 1,
@@ -77,13 +77,13 @@ pub struct Piece {
 
 impl Piece {
     pub fn new(piece_type: PieceType, piece_rotation: i32) -> Self {
-        let mut m_piece = [[0i32; 5]; 5];
+        let m_piece = [[0i32; 5]; 5];
         let mut piece = Piece {
             piece_type,
             m_piece,
         };
-        Piece::set_piece(&mut piece, piece_type);
-        Piece::rotate_piece(&mut piece, piece_rotation);
+        piece.set_piece(piece_type);
+        piece.rotate_piece(piece_rotation);
 
         piece
     }
@@ -118,7 +118,8 @@ impl Piece {
 
     pub fn set_piece(&mut self, piece_type: PieceType) {
         match piece_type {
-            PieceType::ZERO => (),
+            //PieceType::ZERO => (),
+            PieceType::ZERO => panic!("Invalid piece {:?}", piece_type),
             PieceType::I => Piece::copy(&I, &mut self.m_piece),
             PieceType::L => Piece::copy(&L, &mut self.m_piece),
             PieceType::LM => Piece::copy(&LM, &mut self.m_piece),

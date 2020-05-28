@@ -11,11 +11,11 @@ extern "C" {
     pub fn loadBackGround ();
     pub fn loadText       ();
 
-    pub fn pollkey(event: &SDL_Event) -> i32;
+    pub fn pollkey(event: &mut SDL_Event) -> i32;
     pub fn isKeyDown(p_key: i32) -> i32;
 
     pub fn SDLGetTickets() -> u64;
-    pub fn SDL_PollEvent(event: &SDL_Event) -> i32;
+    pub fn SDL_PollEvent(event: &mut SDL_Event) -> i32;
 }
 
 use crate::SDL::SDL_Event;

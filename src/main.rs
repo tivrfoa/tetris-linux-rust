@@ -1,6 +1,4 @@
 mod view;
-type View = view::View;
-
 mod game;
 mod board;
 mod piece;
@@ -8,22 +6,18 @@ mod command;
 mod SDL;
 mod c_api;
 
+use view::View;
 use command::Command;
 use SDL::*;
 
 fn main() {
-	//println!("Hello, world!");
-	
-	// game::Game::get_rand(3, 5);
-
-	//View::test_message_box();
 
 	View::init_graph();
 	let screen_height = View::get_screen_height();
 	//println!("Screen height = {}", screen_height);
 	let mut game = game::Game::new(screen_height);
 
-	let sdl_event = SDL_Event {
+	let mut sdl_event = SDL_Event {
 		type_: 0
 	};
 
@@ -36,30 +30,29 @@ fn main() {
 	while !quit {
 		game.draw_scene();
 
-		let key = Command::poll_key(&sdl_event);
+		let key = Command::poll_key(&mut sdl_event);
 		if key != -1 {
-			println!("Key is = {}", key); // 32
+			unsafe { println!("Key = {} - event->type = {}", key, sdl_event.type_); }
 		}
 
-		let mut event = Command::sdl_poll_event(&sdl_event);
+		let mut event = Command::sdl_poll_event(&mut sdl_event);
 		while event != 0 {
+			println!("Pending event = {}", event);
 			unsafe {
 				println!("sdl_event.type_ = {}", sdl_event.type_);
 				if sdl_event.type_ == SDL_QUIT {
 					quit = true;
 				}
 			}
-			event = Command::sdl_poll_event(&sdl_event);
+			event = Command::sdl_poll_event(&mut sdl_event);
 		}
-		// println!("qnt = {}", qnt);
 
 		/*
-event->type = 1024
 Key is = 1073741906 -> up
 Key is = 1073741905 -> down
 Key is = 1073741904 -> left
 Key is = 1073741903 -> right
-Key is = 32
+Key is = 32         -> space
 		*/
 		match key {
 			10 => quit = true,

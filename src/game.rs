@@ -8,7 +8,7 @@ use crate::piece::{
 };
 use crate::view::View;
 
-use rand::{thread_rng, Rng};
+use rand::Rng;
 
 pub struct Game {
     pub board: Board,
@@ -61,9 +61,9 @@ impl Game {
     }
 
     pub fn get_rand(a: i32, b: i32) -> i32 {
-        let mut rng = thread_rng();
-        let x: i32 = rng.gen();
-        let x = x % (b - a + 1) + a;
+        let mut rng = rand::thread_rng();
+        let x = rng.gen_range(a, b+1);
+        assert!(x >= a && x <= b, "{} should be >= {} and <= {}", x, a, b);
         // println!("{}", x);
 
         x
@@ -99,7 +99,7 @@ impl Game {
         View::load_background();
         self.draw_board();
         self.draw_piece(self.pos_x, self.pos_y, &self.board.piece); // STACK 4
-        self.draw_piece(self.pos_x, self.pos_y, &self.get_next_piece());
+        self.draw_piece(self.next_pos_x, self.next_pos_y, &self.get_next_piece());
 
         View::update_screen();
     }
