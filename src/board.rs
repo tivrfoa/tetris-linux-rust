@@ -90,7 +90,8 @@ impl Board {
                 board_y = y + j;
                 // thread 'main' panicked at 'board_y is negative ... = -1', src/board.rs:94:21
                 //assert!(board_y >= 0, "board_y is negative ... = {}", board_y);
-                if board_y < 0 { break; }
+                //if board_y < 0 { break; } // uncomment this line and then you never lose!
+                if board_y < 0 { board_y = 0; }
                 // Store only the blocks of the piece that are not holes
                 if self.piece.m_piece[i as usize][j as usize] != 0 {
                     assert!(board_x >= 0, "board_x is negative ... = {}", board_x);
