@@ -64,7 +64,6 @@ impl Game {
         let mut rng = rand::thread_rng();
         let x = rng.gen_range(a, b+1);
         assert!(x >= a && x <= b, "{} should be >= {} and <= {}", x, a, b);
-        // println!("{}", x);
 
         x
     }
@@ -84,13 +83,11 @@ impl Game {
         self.next_rotation = Game::get_rand(0, 3);
     }
 
-    pub fn draw_piece(&self, x: i32, y: i32, piece_to_draw: &Piece) { 
-        // Board::draw_piece(&self.board, x, y, piece_to_draw);
-        self.board.draw_piece(x, y, piece_to_draw); // STACK 3
+    pub fn draw_piece(&self, x: i32, y: i32, piece_to_draw: &Piece) {
+        self.board.draw_piece(x, y, piece_to_draw);
     }
 
     pub fn draw_board(&self) {
-        // Board::draw_board(&self.board, self.m_screen_height);
         self.board.draw_board(self.m_screen_height);
     }
 
@@ -98,14 +95,10 @@ impl Game {
         View::clear_screen();
         View::load_background();
         self.draw_board();
-        self.draw_piece(self.pos_x, self.pos_y, &self.board.piece); // STACK 4
-        self.draw_piece(self.next_pos_x, self.next_pos_y, &self.get_next_piece());
+        self.draw_piece(self.pos_x, self.pos_y, &self.board.piece);
+        self.draw_piece(self.next_pos_x, self.next_pos_y, &self.next_piece);
 
         View::update_screen();
-    }
-
-    pub fn get_next_piece(&self) -> Piece {
-        Piece::new(self.next_piece_type, self.next_rotation)
     }
 
     pub fn restart(&mut self) -> bool {
