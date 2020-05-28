@@ -98,7 +98,8 @@ int initGraph ()
     }
 
     //surface = SDL_GetWindowSurface(win);
-    imgSurface = SDL_LoadBMP("Dreaming-of-Mars.bmp");
+    //imgSurface = SDL_LoadBMP("Dreaming-of-Mars.bmp");
+    imgSurface = SDL_LoadBMP("ferris2.bmp");
     background_tx = SDL_CreateTextureFromSurface (ren, imgSurface);
     SDL_FreeSurface( imgSurface );
     SDL_RenderCopy(ren, background_tx, NULL, NULL);

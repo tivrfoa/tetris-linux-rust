@@ -29,8 +29,8 @@ use crate::piece::PieceType;
 pub fn get_color(piece_type: PieceType) -> color {
     match piece_type {
         //PieceType::ZERO => panic!("Invalid type for color: "),
-        PieceType::ZERO => color::BLACK,
-        PieceType::I => color::BLACK,
+        PieceType::ZERO => color::WHITE,
+        PieceType::I => color::WHITE,
         PieceType::L => color::RED,
         PieceType::LM => color::GREEN,
         PieceType::N => color::BLUE,
