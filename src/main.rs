@@ -82,7 +82,7 @@ Key is = 32
 				while game.is_possible_movement(0, 0) {
 					game.pos_y += 1;
 				}
-				game.board.storePiece(game.pos_x, game.pos_y - 1);
+				game.board.store_piece(game.pos_x, game.pos_y - 1);
 				game.board.deletePossibleLines();
 
 				if game.board.isGameOver() {
@@ -105,12 +105,12 @@ Key is = 32
 		}
 
 		// ----------- vertical movement --------------------
-		let mut time2 = View::sdl_get_tickets();
+		let time2 = View::sdl_get_tickets();
 		if time2 - time1 > game::WAIT_TIME {
 			if game.is_possible_movement(0, 1) {
 				game.pos_y += 1;
 			} else {
-				game.board.storePiece(game.pos_x, game.pos_y);
+				game.board.store_piece(game.pos_x, game.pos_y);
 				game.board.deletePossibleLines();
 
 				if game.board.isGameOver() {

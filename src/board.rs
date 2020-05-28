@@ -3,8 +3,6 @@ const BLOCK_SIZE: i32 = 20;               // Width and Height of each block of a
 const BOARD_POSITION: i32 = 512;          // Center position of the board from the left of the screen
 const BOARD_WIDTH: i32 = 10;              // Board width in blocks
 const BOARD_HEIGHT: i32 = 20;             // Board height in blocks
-const MIN_VERTICAL_MARGIN: i32 = 20;      // Minimum vertical margin for the board limit
-const MIN_HORIZONTAL_MARGIN: i32 = 20;    // Minimum horizontal margin for the board limit
 const PIECE_BLOCKS: i32 = 5;              // Number of horizontal and vertical blocks of a matrix piece
 
 pub struct Board {
@@ -37,41 +35,41 @@ impl Board {
         }
     }
 
-    pub fn getXPosInPixels (pPos: i32) -> i32 {
-        ( (BOARD_POSITION - (BLOCK_SIZE * (BOARD_WIDTH / 2)) ) + (pPos * BLOCK_SIZE) )
+    pub fn get_x_pos_in_pixels (pos: i32) -> i32 {
+        (BOARD_POSITION - (BLOCK_SIZE * (BOARD_WIDTH / 2)) ) + (pos * BLOCK_SIZE)
     }
 
-    pub fn get_y_pos_in_pixels (&self, pPos: i32) -> i32 {
+    pub fn get_y_pos_in_pixels (&self, pos: i32) -> i32 {
         // println!("get_y_pos_in_pixels -> pPos = {}", pPos);
         //panic!("test");
-        self.m_screen_height - (BLOCK_SIZE * BOARD_HEIGHT) + (pPos * BLOCK_SIZE)
+        self.m_screen_height - (BLOCK_SIZE * BOARD_HEIGHT) + (pos * BLOCK_SIZE)
     }
 
-    pub fn is_block_free (&self, pX: usize, pY: usize) -> bool {
-        self.m_board[pX][pY] == PieceType::ZERO
+    pub fn is_block_free (&self, x: usize, y: usize) -> bool {
+        self.m_board[x][y] == PieceType::ZERO
     }
 
     ///
     /// Checks collision with pieces already stored in the board or the board limits
     /// This is just to check the 5x5 blocks of a piece with the appropriate area in the board
-    pub fn isPossibleMovement (&self, pX: i32, pY: i32) -> bool {
-        let mut boardX = 0;
-        let mut boardY = 0;
+    pub fn is_possible_movement (&self, x: i32, y: i32) -> bool {
+        let mut board_x;
+        let mut board_y;
 
         for i in 0..PIECE_BLOCKS {
-            boardX = pX + i;
+            board_x = x + i;
             for j in 0..PIECE_BLOCKS {
-                boardY = pY + j;
+                board_y = y + j;
                 // Check if the piece is outside the limits of the board
-                if boardX < 0 || boardX > BOARD_WIDTH - 1 || boardY > BOARD_HEIGHT - 1 {
+                if board_x < 0 || board_x > BOARD_WIDTH - 1 || board_y > BOARD_HEIGHT - 1 {
                     if self.piece.m_piece[i as usize][j as usize] != 0 {
                         return false;
                     }
                 }
                 // Check if the piece have collisioned with a block already stored in the map
-                if boardY >= 0 {
+                if board_y >= 0 {
                     if self.piece.m_piece[i as usize][j as usize] != 0 &&
-                            !self.is_block_free(boardX as usize, boardY as usize) {
+                            !self.is_block_free(board_x as usize, board_y as usize) {
                         return false;
                     }
                 }
@@ -82,17 +80,17 @@ impl Board {
     }
 
     /// Store each block of the piece into the board
-    pub fn storePiece (&mut self, pX: i32, pY: i32) {
-        let mut boardX = 0;
-        let mut boardY = 0;
+    pub fn store_piece (&mut self, x: i32, y: i32) {
+        let mut board_x;
+        let mut board_y;
         
         for i in 0..PIECE_BLOCKS {
-            boardX = pX + i;
+            board_x = x + i;
             for j in 0..PIECE_BLOCKS {
-                boardY = pY + j;
+                board_y = y + j;
                 // Store only the blocks of the piece that are not holes
                 if self.piece.m_piece[i as usize][j as usize] != 0 {
-                    self.m_board[boardX as usize][boardY as usize] = self.piece.piece_type;
+                    self.m_board[board_x as usize][board_y as usize] = self.piece.piece_type;
                 }
             }
         }
@@ -156,7 +154,7 @@ impl Board {
 
     pub fn draw_piece(&self, x: i32, y: i32, piece_to_draw: &Piece) {        
         let m_color = get_color(piece_to_draw.piece_type);
-        let x_pos_in_pixels = Board::getXPosInPixels(x);
+        let x_pos_in_pixels = Board::get_x_pos_in_pixels(x);
         let y_pos_in_pixels = self.get_y_pos_in_pixels(y); // STACK 2
 
         for i in 0..PIECE_BLOCKS {

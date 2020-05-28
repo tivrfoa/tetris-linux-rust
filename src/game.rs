@@ -70,7 +70,7 @@ impl Game {
     }
 
     pub fn is_possible_movement(&self, x: i32, y: i32) -> bool {
-        self.board.isPossibleMovement(self.pos_x + x, self.pos_y + y)
+        self.board.is_possible_movement(self.pos_x + x, self.pos_y + y)
     }
 
     pub fn create_new_piece(&mut self) {
