@@ -10,7 +10,7 @@ sudo apt-get install libsdl2-dev
 sudo apt-get install libsdl2-gfx-dev
 ```
 
-Next, clone the repository. Change directory to tetris-linux and run with
+Next, clone the repository. Change directory to tetris-linux-rust and run with
 ```
 cargo run
 ```
